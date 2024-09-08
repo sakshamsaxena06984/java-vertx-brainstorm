@@ -30,17 +30,17 @@ public class MainVerticle extends AbstractVerticle {
 
     // ------ second way
 //    vertx.createHttpServer().requestHandler(req->{
-//      if (req.path().startsWith("/api/v1/hello")){
+//      if (req.path().startsWith("/api/v1/Hello")){
 //        req.response().end("Hello Vertx, if condition");
 //      }
 //    }).listen(8080);
 
     // ------ creating api via router, which is provided via vertx-web
 //    Router router = Router.router(vertx);
-//    router.get("/api/v1/hello").handler(ctx->{
+//    router.get("/api/v1/Hello").handler(ctx->{
 //      ctx.request().response().end("Hello Vert.x World");
 //    });
-//    router.get("/api/v1/hello/:name").handler(ctx->{
+//    router.get("/api/v1/Hello/:name").handler(ctx->{
 //      String name=ctx.pathParam("name");
 //      ctx.request().response().end(String.format("Hello %s",name));
 //    });
@@ -56,11 +56,11 @@ public class MainVerticle extends AbstractVerticle {
     vertx.deployVerticle(new HelloVerticle());
     Router router = Router.router(vertx);
     System.out.println("----------- calling line number 51 -------");
-    router.get("/api/v1/hello").handler(ctx->{
+    router.get("/api/v1/Hello").handler(ctx->{
       ctx.request().response().end("Hello Vert.x World");
     });
     System.out.println("------------  calling line number 52");
-    router.get("/api/v1/hello/:name").handler(ctx->{
+    router.get("/api/v1/Hello/:name").handler(ctx->{
       String name=ctx.pathParam("name");
       ctx.request().response().end(String.format("Hello %s",name));
     });
@@ -69,14 +69,14 @@ public class MainVerticle extends AbstractVerticle {
 
   }
   void helloVertx(RoutingContext ctx){
-    vertx.eventBus().request("hello.vertx.addr","",reply->{
+    vertx.eventBus().request("Hello.vertx.addr","",reply->{
       ctx.request().response().end((String) reply.result().body());
     });
   }
 
   void helloName(RoutingContext ctx){
     String name=ctx.pathParam("name");
-    vertx.eventBus().request("hello.named.addr",name,reply ->{
+    vertx.eventBus().request("Hello.named.addr",name,reply ->{
       ctx.request().response().end((String) reply.result().body());
     });
 
