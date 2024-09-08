@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "dagId": {
+      "type": "string"
+    },
+    "dagRunId": {
+      "type": "string"
+    },
+    "autoRetrainingId": {
+      "type": "integer"
+    },
+    "governanceDecision": {
+      "type": "object"
+    },
+    "customDagRunStatus": {
+      "type": "string"
+    },
+    "dagRunStatus": {
+      "type": "string"
+    },
+    "championChallengerComparison": {
+      "type": "object",
+      "properties": {
+        "champion_challenger_metrics": {
+          "type": "object",
+          "properties": {
+           "champion_metrics": {
+             "type": "object"
+           },
+           "challenger_better": {
+             "type": "string"
+           },
+           "challenger_metrics": {
+             "type": "object"
+           }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "oneOf": [
+        {
+          "required": ["dagId", "dagRunId"]
+        },
+        {
+          "required": ["autoRetrainingId"]
+        }
+      ]
+    },
+    {
+      "anyOf": [
+        {
+          "required": ["governanceDecision"]
+        },
+        {
+          "required": ["dagRunStatus"]
+        },
+        {
+          "required": ["customDagRunStatus","dagRunStatus"]
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "required": ["dagId","dagRunId"]
+        },
+        {
+          "required": ["championChallengerComparison"]
+        },
+        {
+          "required": ["autoRetrainingId"]
+        }
+      ]
+    }
+  ]
+}
+
+{
+  "dagId": "abcd",
+  "dagRunId": "msk",
+  "championChallengerComparison": {
+    "champion_challenger_metrics": {
+      "champion_metrics": {},
+      "challenger_better": "true"
+
+
+    }
+
+  },
+  "autoRetrainingId": 123
+}
